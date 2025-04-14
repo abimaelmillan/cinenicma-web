@@ -1,0 +1,170 @@
+---
+
+---
+
+<header>
+  <nav class="navbar">
+    <!-- Menú hamburguesa -->
+    <button id="menu-toggle">
+      <div></div>
+      <div></div>
+      <div></div>
+    </button>
+
+    <!-- Título centrado -->
+    <div class="logo">
+      <h1>CINENICMA</h1>
+    </div>
+
+    <!-- Botones para modo noche y cambio de idioma -->
+    <div class="actions">
+      <button id="theme-toggle"></button>
+      <button id="lang-toggle"></button>
+    </div>
+
+    <!-- Menu lateral oculto por defecto  -->
+    <div id="side-menu">
+      <nav class="side-nav">
+        <a href="#">Inicio</a>
+        <a href="#">Contacto</a>
+        <a href="#">Servicios</a>
+        <a href="#">Acerca de</a>
+      </nav>
+    </div>
+  </nav>
+</header>
+
+<style>
+  header {
+    position: fixed;
+    height: 90px;
+    width: 100%;
+    z-index: 100;
+    /* background: transparent; */
+
+  }
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+  }
+  /* Estilos básicos para el botón hamburguesa */
+  #menu-toggle {
+    display: flex;
+    flex-direction: column;
+    width: 3rem;
+    border: 0;
+    background: transparent;
+    gap: 0.65rem;
+    cursor: pointer;
+    position: relative;
+    z-index: 1100;
+  }
+  #menu-toggle > div {
+    background: white;
+    height: 2px;
+    width: 100%;
+    border-radius: 5px;
+    transition: all 0.5s;
+    transform-origin: left;
+  }
+  /* Animación por hover (opcional)
+  #menu-toggle:hover div:first-child{
+    transform: rotate(45deg);
+  }
+  #menu-toggle:hover div:nth-child(2){
+    opacity: 0;
+  }
+  #menu-toggle:hover div:last-child{
+    transform: rotate(-45deg);
+  } */
+  /* Animación al hacer click (cuando tenga la clase active) */
+  #menu-toggle.active div:first-child {
+    transform: rotate(45deg);
+    background: black;
+  }
+  #menu-toggle.active div:nth-child(2) {
+    opacity: 0;
+  }
+  #menu-toggle.active div:last-child {
+    transform: rotate(-45deg);
+    background: black;
+  }
+
+  #side-menu{
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 25%;
+    height: 100%;
+    background-color: #f5f5f5;
+    padding: 20px;
+    transition: transform 0.4s ease-out;
+    transform: translateX(-100%);
+    z-index: 1000;
+  }
+
+  #side-menu.active{
+    transform: translateX(0);
+  }
+
+  .side-nav{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem; 
+    row-gap: 7rem;
+
+    font-size: 2.5rem;
+
+    height: 100%;
+    justify-content: center;
+    align-items: flex-start;
+    padding-left: 5rem;
+  }
+
+  .side-nav a{
+    text-decoration: none;
+    color: #333;
+    position: relative;
+    font-weight: 400;
+    
+  }
+
+  .side-nav a::after{
+    content: "";
+    display: block;
+    width: 100%;
+    height: 3px;
+    background: #333;
+    border-radius: 15px;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.5s ease;
+    margin-top: 3px;
+  }
+
+  .side-nav a:hover::after{
+    transform: scaleX(1);
+  }
+
+  .logo{
+
+
+    color: white; 
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const menuToggle = document.getElementById("menu-toggle");
+    const sideMenu = document.getElementById('side-menu'); 
+    if (menuToggle) {
+      menuToggle.addEventListener("click", () => {
+        menuToggle.classList.toggle("active");
+        // Aquí puedes agregar la lógica para mostrar el menú de categorías si lo deseas
+        sideMenu?.classList.toggle('active'); 
+      });
+    }
+  });
+</script>

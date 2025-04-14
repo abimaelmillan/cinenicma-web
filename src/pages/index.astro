@@ -1,11 +1,103 @@
 ---
 import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="Cinenicma">
+
+
+
+
+
+
+
+
+
+
+   <section class="first-section">
+
+    Video de fondo para la página principal
+    <video autoplay muted loop playsinline class="background-video">
+      <source src="/videos/background.mp4" type="video/mp4" />
+      Tu navegador no soporta el elemento de video.
+    </video>
+
+  </section> 
+
+
+  <section class="segunda-pagina">
+
+    <h2>Acerca de nosotros</h2>
+
+    <div>
+      <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aut aliquam quod, reprehenderit neque temporibus expedita nemo quia saepe doloremque, hic, impedit quasi facere. A atque labore fugiat porro temporibus. Laudantium!
+      Nesciunt, pariatur. Expedita consequuntur recusandae assumenda earum facere ab eveniet aperiam quos autem est maiores iusto magni voluptatum sapiente quae sunt nemo eaque accusantium temporibus, exercitationem repudiandae modi blanditiis odit?
+      Fugiat officiis fuga tempore blanditiis ipsam recusandae corporis ab, quibusdam saepe odio labore optio, maxime obcaecati mollitia cumque asperiores dolorem. Iure deserunt earum, illum iusto laborum ratione nisi sint obcaecati!
+      </p>
+    </div>
+
+
+
+
+  </section>
+
+  
+  
+  
+
+  <style>
+
+
+
+    .first-section{
+      height: calc(100vh);
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .background-video {
+     position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* Asegura que el video cubra la pantalla sin distorsionar */
+      z-index: -1; /* Permite que el contenido se muestre encima del video */
+    }
+
+    .segunda-pagina h2{
+      display: inline-block;
+      width: 50%;
+    }
+
+    .segunda-pagina div{
+      
+      width: 50%;
+    }
+
+    .segunda-pagina{
+     height: 100%;
+     width: 100%;
+     color: white;
+      
+      background-color: black;
+      display: flex;
+      box-sizing: border-box;
+      padding: 0 5rem;
+    }
+
+
+
+  </style>
+
+
+
+
+
+
+
+
+
+
+  
 </Layout>
