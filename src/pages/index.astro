@@ -1,6 +1,12 @@
 ---
-import Welcome from '../components/Welcome.astro';
+import AboutUs from '../components/About_us.astro';
+import Galeria from '../components/Galeria.astro';
+import Manifest from '../components/Manifest.astro';
+
+
 import Layout from '../layouts/Layout.astro';
+
+
 ---
 
 <Layout title="Cinenicma">
@@ -18,28 +24,30 @@ import Layout from '../layouts/Layout.astro';
 
     Video de fondo para la página principal
     <video autoplay muted loop playsinline class="background-video">
-      <source src="/videos/background.mp4" type="video/mp4" />
+      <source src="/videos/background.webm" type="video/mp4" />
       Tu navegador no soporta el elemento de video.
     </video>
 
   </section> 
-
-
-  <section class="segunda-pagina">
-
-    <h2>Acerca de nosotros</h2>
-
-    <div>
-      <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aut aliquam quod, reprehenderit neque temporibus expedita nemo quia saepe doloremque, hic, impedit quasi facere. A atque labore fugiat porro temporibus. Laudantium!
-      Nesciunt, pariatur. Expedita consequuntur recusandae assumenda earum facere ab eveniet aperiam quos autem est maiores iusto magni voluptatum sapiente quae sunt nemo eaque accusantium temporibus, exercitationem repudiandae modi blanditiis odit?
-      Fugiat officiis fuga tempore blanditiis ipsam recusandae corporis ab, quibusdam saepe odio labore optio, maxime obcaecati mollitia cumque asperiores dolorem. Iure deserunt earum, illum iusto laborum ratione nisi sint obcaecati!
-      </p>
-    </div>
+  <div id="scroll-trigger" style="height: 1px; position: absolute; top: 95vh;"></div>
 
 
 
+  
+  <Manifest></Manifest>
 
-  </section>
+  <div id="trigger-light" style="height:1px; position:absolute; top:95vh;"></div>
+  
+  <Galeria></Galeria>
+
+
+  
+
+  
+  
+
+  </Layout>
+
 
   
   
@@ -50,6 +58,7 @@ import Layout from '../layouts/Layout.astro';
 
 
     .first-section{
+      width: 100vw;
       height: calc(100vh);
       overflow: hidden;
       position: relative;
@@ -65,28 +74,7 @@ import Layout from '../layouts/Layout.astro';
       z-index: -1; /* Permite que el contenido se muestre encima del video */
     }
 
-    .segunda-pagina h2{
-      display: inline-block;
-      width: 50%;
-    }
-
-    .segunda-pagina div{
-      
-      width: 50%;
-    }
-
-    .segunda-pagina{
-     height: 100%;
-     width: 100%;
-     color: white;
-      
-      background-color: black;
-      display: flex;
-      box-sizing: border-box;
-      padding: 0 5rem;
-    }
-
-
+   
 
   </style>
 
@@ -95,6 +83,39 @@ import Layout from '../layouts/Layout.astro';
 
 
 
+<script>
+ document.addEventListener("DOMContentLoaded", () => {
+  const trigger = document.getElementById("scroll-trigger");
+  const navElement = document.querySelector(".cambio_color");
+  const element = document.querySelector('.menu_cambio'); 
+
+  if (!trigger || !navElement) {
+    console.error("No se encontró el elemento #scroll-trigger o .cambio_color");
+    return;
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      const entry = entries[0];
+      if (!entry.isIntersecting) {
+        navElement.classList.add("scrolled");
+        element?.classList.add('scrolled_menu');
+      } else {
+        navElement.classList.remove("scrolled");
+        element?.classList.remove('scrolled_menu');
+      }
+    },
+    {
+      root: null, // Usa el viewport como contenedor
+      threshold: 0.1, // Detecta cuando el 10% del elemento es visible
+    }
+  );
+
+  observer.observe(trigger);
+});
+
+
+</script>
 
 
 

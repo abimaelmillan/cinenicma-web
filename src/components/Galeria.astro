@@ -1,0 +1,113 @@
+<section class="galeria">
+  <figure class="galeria-item item1">
+    <img src="/images/1.JPG" alt="Imagen 1">
+  </figure>
+  <figure class="galeria-item item2" >
+    <img src="/images/2.JPG" alt="Imagen 2">
+  </figure>
+  <figure class="galeria-item item3">
+    <img src="/images/3.JPG" alt="Imagen 3">
+  </figure>
+  <figure class="galeria-item item4">
+    <img src="/images/4.JPG" alt="Imagen 4">
+  </figure>
+  <figure class="galeria-item item5">
+    <img src="/images/5.JPG" alt="Imagen 5">
+  </figure>
+
+  <figure class="galeria-item item6">
+    <img src="/images/6.JPG" alt="Imagen 5">
+  </figure>
+
+  <figure class="galeria-item item7">
+    <img src="/images/7.JPG" alt="Imagen 5">
+  </figure>
+
+
+
+
+
+  
+  <!-- Agrega más figuras según lo necesites -->
+</section>
+
+<style>
+  .galeria {
+    display: grid;
+    width: 100vw;
+    grid-template-columns: repeat(3,1fr);
+    grid-auto-rows: auto;
+    gap: 1rem 1rem;
+
+    padding-bottom: 5rem;
+    background-color: white;
+
+  }
+
+  .galeria-item {  
+    box-sizing: border-box;
+    height: 400px;
+    overflow: hidden;
+  }
+
+  
+  .item2{
+    grid-column: span 2;
+  }
+  
+  .item3{
+    grid-column: span 2;
+  }
+  
+  
+  .item5{
+    grid-column: span 3;
+  }
+
+
+  .item7{
+    grid-column: span 2;
+  }
+
+
+  .galeria-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  figure{
+    padding: 0;
+    margin: 0;
+  }
+  
+  
+  
+  
+  
+  
+/* 1) Animación que combina desvanecimiento, desplazamiento y zoom */
+@keyframes fadeInGrow {
+  from {
+    
+    transform: translateY(60px) scale(0.9);
+  }
+  to {
+    
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* 2) Aplica la animación ligada al scroll */
+.galeria-item {
+  transform-origin: center center;          /* zoom centrado */
+  animation-name: fadeInGrow;
+  animation-timing-function: ease-out;
+  animation-fill-mode: both;                /* conserva estado “to” */
+  animation-duration: 1s;                   /* duración base */
+  animation-timeline: view();               /* vinculado al viewport */
+  animation-range: entry 0% exit 100%;      /* desde que entra hasta que sale */
+}
+
+</style>
