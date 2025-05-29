@@ -11,7 +11,7 @@ import Layout from '../layouts/Layout.astro';
 
      <section class="first-section">
      <!-- Video de fondo para la página principal     -->
-     <video autoplay muted loop playsinline class="background-video">
+     <video autoplay muted loop playsinline class="background-video" preload="auto" >
       <!-- <source src="/videos/background.webm" type="video/mp4" /> -->
        <source src="/videos/background4.webm" type="video/webm" />
       Tu navegador no soporta el elemento de video.
@@ -49,12 +49,26 @@ import Layout from '../layouts/Layout.astro';
       left: 4rem;
       font-size: 5rem;
      } */
+
+
+
+
+     
      
      .first-section{
       width: 100vw;
       height: calc(100vh);
       overflow: hidden;
       position: relative;
+
+
+/* 
+       background-image: url('/images/8.jpg');
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+
+      z-index: -3; */
     }
        
      .background-video {
@@ -150,8 +164,21 @@ import Layout from '../layouts/Layout.astro';
 
 </script> -->
 
-<script>
+<script >
   function init() {
+
+
+    // ——————— NUEVO: recarga y reproduce el vídeo ———————
+    const el = document.querySelector('.background-video');
+    if (el instanceof HTMLVideoElement) {
+      el.load(); 
+      el.play().catch(() => {
+        console.warn("El video no pudo reproducirse inmediatamente.");
+      });
+    }
+    // ————————————————————————————————————————————————
+
+    
     const trigger = document.getElementById("scroll-trigger");
     const navElement = document.querySelector(".cambio_color");
     const element = document.querySelector('.menu_cambio');  //Este es el menu de divs
