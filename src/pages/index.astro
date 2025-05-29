@@ -51,20 +51,20 @@ import Layout from '../layouts/Layout.astro';
   
 
 
-    // ——————— NUEVO: recarga y reproduce el vídeo ———————
-    const video = document.querySelector('.background-video');
-    if (video instanceof HTMLVideoElement) {
-      // Espera a que el vídeo tenga suficiente buffer
-      video.addEventListener('canplaythrough', () => {
-        video.play().catch(() => {
-          console.warn("Autoplay bloqueado inicialmente.");
-        });
-      }, { once: true });
+    // // ——————— NUEVO: recarga y reproduce el vídeo ———————
+    // const video = document.querySelector('.background-video');
+    // if (video instanceof HTMLVideoElement) {
+    //   // Espera a que el vídeo tenga suficiente buffer
+    //   video.addEventListener('canplaythrough', () => {
+    //     video.play().catch(() => {
+    //       console.warn("Autoplay bloqueado inicialmente.");
+    //     });
+    //   }, { once: true });
 
-      // Fuerza la carga del vídeo
-      video.load();
-    }
-    // ————————————————————————————————————————————————
+    //   // Fuerza la carga del vídeo
+    //   video.load();
+    // }
+    // // ————————————————————————————————————————————————
 
     
     const trigger = document.getElementById("scroll-trigger");
