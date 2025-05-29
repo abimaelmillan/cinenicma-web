@@ -151,8 +151,30 @@ import Layout from '../layouts/Layout.astro';
       height: 100%;
       object-fit: cover; /* Asegura que el video cubra la pantalla sin distorsionar */
       z-index: -1; /* Permite que el contenido se muestre encima del video */
+
+
+       /* Ocultar controles y botón de play */
+      pointer-events: none;
     }
     
+
+  /* Ocultar controles nativos del video */
+    .background-video::-webkit-media-controls {
+      display: none !important;
+    }
+
+    .background-video::-webkit-media-controls-panel {
+      display: none !important;
+    }
+    
+    .background-video::-webkit-media-controls-play-button {
+      display: none !important;
+    }
+    
+    .background-video::-webkit-media-controls-start-playback-button {
+      display: none !important;
+    }
+
     /* Estilos para el texto identificativo */
     .hero-text {
       position: absolute;
