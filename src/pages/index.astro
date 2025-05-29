@@ -37,6 +37,75 @@ import Layout from '../layouts/Layout.astro';
      
      <Galeria></Galeria>
              
+
+
+
+<script >
+
+ 
+  
+   
+
+  function init() {
+
+  
+
+
+    // ——————— NUEVO: recarga y reproduce el vídeo ———————
+    const video = document.querySelector('.background-video');
+    if (video instanceof HTMLVideoElement) {
+      // Espera a que el vídeo tenga suficiente buffer
+      video.addEventListener('canplaythrough', () => {
+        video.play().catch(() => {
+          console.warn("Autoplay bloqueado inicialmente.");
+        });
+      }, { once: true });
+
+      // Fuerza la carga del vídeo
+      video.load();
+    }
+    // ————————————————————————————————————————————————
+
+    
+    const trigger = document.getElementById("scroll-trigger");
+    const navElement = document.querySelector(".cambio_color");
+    const element = document.querySelector('.menu_cambio');  //Este es el menu de divs
+    const logo = document.getElementById("logo");
+
+    if (!trigger || !navElement) {
+      console.error("No se encontró el elemento #scroll-trigger o .cambio_color");
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        if (!entry.isIntersecting) {
+          element?.classList.add('scrolled_menu');
+          logo?.classList.add("hidden");
+         } else {
+          element?.classList.remove('scrolled_menu');
+          logo?.classList.remove("hidden");
+        }
+      },
+      {
+        root: null,
+        threshold: 0.1,
+      }
+    );
+
+    observer.observe(trigger);
+  }
+
+  // Inicializar en la primera carga
+  // init();
+
+  document.addEventListener('astro:page-load', init);
+
+
+  // Re-inicializar después de cada transición de vista
+  document.addEventListener("astro:after-swap", init);
+</script>
 </Layout>
 
             
@@ -164,57 +233,6 @@ import Layout from '../layouts/Layout.astro';
 
 </script> -->
 
-<script >
-  function init() {
-
-
-    // ——————— NUEVO: recarga y reproduce el vídeo ———————
-    const el = document.querySelector('.background-video');
-    if (el instanceof HTMLVideoElement) {
-      el.load(); 
-      el.play().catch(() => {
-        console.warn("El video no pudo reproducirse inmediatamente.");
-      });
-    }
-    // ————————————————————————————————————————————————
-
-    
-    const trigger = document.getElementById("scroll-trigger");
-    const navElement = document.querySelector(".cambio_color");
-    const element = document.querySelector('.menu_cambio');  //Este es el menu de divs
-    const logo = document.getElementById("logo");
-
-    if (!trigger || !navElement) {
-      console.error("No se encontró el elemento #scroll-trigger o .cambio_color");
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const entry = entries[0];
-        if (!entry.isIntersecting) {
-          element?.classList.add('scrolled_menu');
-          logo?.classList.add("hidden");
-         } else {
-          element?.classList.remove('scrolled_menu');
-          logo?.classList.remove("hidden");
-        }
-      },
-      {
-        root: null,
-        threshold: 0.1,
-      }
-    );
-
-    observer.observe(trigger);
-  }
-
-  // Inicializar en la primera carga
-  init();
-
-  // Re-inicializar después de cada transición de vista
-  document.addEventListener("astro:after-swap", init);
-</script>
 
       
 </Layout>
