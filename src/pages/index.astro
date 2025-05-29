@@ -41,42 +41,44 @@ import Layout from '../layouts/Layout.astro';
      <Galeria></Galeria>
              
 
-
-
-<script >
-
- 
-  
-   
-
-  function init() {
-
-  
-
-
-    // ——————— NUEVO: recarga y reproduce el vídeo ———————
+<script>
+  function initVideo() {
     const video = document.querySelector('.background-video');
     if (video instanceof HTMLVideoElement) {
-      // Espera a que el vídeo tenga suficiente buffer
-      video.addEventListener('canplaythrough', () => {
-        video.play().catch(() => {
-          console.warn("Autoplay bloqueado inicialmente.");
+      // Asegurar que el video está completamente cargado
+      const playVideo = () => {
+        video.currentTime = 0; // Reiniciar desde el principio
+        video.play().catch((error) => {
+          console.warn("Autoplay bloqueado:", error);
+          // Intentar reproducir después de una interacción del usuario
+          document.addEventListener('click', () => {
+            video.play().catch(() => {});
+          }, { once: true });
         });
-      }, { once: true });
+      };
 
-      // Fuerza la carga del vídeo
-      video.load();
+      if (video.readyState >= 3) {
+        // El video ya está listo para reproducir
+        playVideo();
+      } else {
+        // Esperar a que el video esté listo
+        video.addEventListener('canplaythrough', playVideo, { once: true });
+        video.addEventListener('loadeddata', playVideo, { once: true });
+        
+        // Forzar la carga del video
+        video.load();
+      }
     }
-    // ————————————————————————————————————————————————
+  }
 
-    
+  function initScrollObserver() {
     const trigger = document.getElementById("scroll-trigger");
     const navElement = document.querySelector(".cambio_color");
-    const element = document.querySelector('.menu_cambio');  //Este es el menu de divs
+    const element = document.querySelector('.menu_cambio');  
     const logo = document.getElementById("logo");
 
-    if (!trigger || !navElement) {
-      console.error("No se encontró el elemento #scroll-trigger o .cambio_color");
+    if (!trigger) {
+      console.error("No se encontró el elemento #scroll-trigger");
       return;
     }
 
@@ -86,7 +88,7 @@ import Layout from '../layouts/Layout.astro';
         if (!entry.isIntersecting) {
           element?.classList.add('scrolled_menu');
           logo?.classList.add("hidden");
-         } else {
+        } else {
           element?.classList.remove('scrolled_menu');
           logo?.classList.remove("hidden");
         }
@@ -100,15 +102,23 @@ import Layout from '../layouts/Layout.astro';
     observer.observe(trigger);
   }
 
-  // Inicializar en la primera carga
-  // init();
+  function init() {
+    initVideo();
+    initScrollObserver();
+  }
 
+  // Para la primera carga de la página
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+
+  // Para las navegaciones de Astro
   document.addEventListener('astro:page-load', init);
-
-
-  // Re-inicializar después de cada transición de vista
-  document.addEventListener("astro:after-swap", init);
+  document.addEventListener('astro:after-swap', init);
 </script>
+
 </Layout>
 
             
@@ -154,11 +164,13 @@ import Layout from '../layouts/Layout.astro';
 
 
        /* Ocultar controles y botón de play */
-      pointer-events: none;
+      /* pointer-events: none; */
+
+
     }
     
 
-  /* Ocultar controles nativos del video */
+  /* Ocultar controles nativos del video
     .background-video::-webkit-media-controls {
       display: none !important;
     }
@@ -173,7 +185,7 @@ import Layout from '../layouts/Layout.astro';
     
     .background-video::-webkit-media-controls-start-playback-button {
       display: none !important;
-    }
+    } */
 
     /* Estilos para el texto identificativo */
     .hero-text {
