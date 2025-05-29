@@ -3,68 +3,61 @@ import AboutUs from '../components/About_us.astro';
 import Galeria from '../components/Galeria.astro';
 import Manifest from '../components/Manifest.astro';
 
-
 import Layout from '../layouts/Layout.astro';
-
 
 ---
 
 <Layout title="Cinenicma">
 
-
-
-
-
-
-
-
-
-
-   <section class="first-section">
-
-    Video de fondo para la página principal
-    <video autoplay muted loop playsinline class="background-video">
-      <source src="/videos/background.webm" type="video/mp4" />
+     <section class="first-section">
+     <!-- Video de fondo para la página principal     -->
+     <video autoplay muted loop playsinline class="background-video">
+      <!-- <source src="/videos/background.webm" type="video/mp4" /> -->
+       <source src="/videos/background4.webm" type="video/mp4" />
       Tu navegador no soporta el elemento de video.
     </video>
+    
+    <!-- Texto identificativo de la casa productora -->
+    <div class="hero-text">
+      <h1 class="company-title">NARRATIVA PRIMERO</h1>
+      <!-- <p class="company-tagline">Casa productora audiovisual</p> -->
+       <p class="company-tagline">Film Production Company</p>
+    </div>
+    
+    <!-- <div class="texto_principal">
+      <h1>En cincenicma lo hacemos posible </h1> -->
+     <!-- </div> -->
+    <!-- <h1 class="titulo">Lo hacemos posible</h1> -->
+   
+   </section>
+    <div id="scroll-trigger" style="height: 1px; position: absolute; top: 120px;"></div>
+    
+    <Manifest></Manifest>
+   <div id="trigger-light" style="height:1px; position:absolute; top:95vh;"></div>
+     
+     <Galeria></Galeria>
+             
+</Layout>
 
-  </section> 
-  <div id="scroll-trigger" style="height: 1px; position: absolute; top: 95vh;"></div>
-
-
-
-  
-  <Manifest></Manifest>
-
-  <div id="trigger-light" style="height:1px; position:absolute; top:95vh;"></div>
-  
-  <Galeria></Galeria>
-
-
-  
-
-  
-  
-
-  </Layout>
-
-
-  
-  
-  
-
-  <style>
-
-
-
-    .first-section{
+            
+<style>
+     /* .titulo{
+      position: absolute;
+      z-index: 100000;
+      color: white; 
+      bottom: 2rem;
+      left: 4rem;
+      font-size: 5rem;
+     } */
+     
+     .first-section{
       width: 100vw;
       height: calc(100vh);
       overflow: hidden;
       position: relative;
     }
-    
-    .background-video {
+       
+     .background-video {
      position: absolute;
       top: 0;
       left: 0;
@@ -73,21 +66,60 @@ import Layout from '../layouts/Layout.astro';
       object-fit: cover; /* Asegura que el video cubra la pantalla sin distorsionar */
       z-index: -1; /* Permite que el contenido se muestre encima del video */
     }
+    
+    /* Estilos para el texto identificativo */
+    .hero-text {
+      position: absolute;
+      bottom: 8%;
+      left: 6%;
+      z-index: 10;
+      color: white;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+    
+    .company-title {
+      font-size: clamp(1.8rem, 5vw, 3.5rem);
+      /* font-weight: 300; */
+      font-weight: 800;
+      
+      letter-spacing: 0.05em;
+      margin: 0;
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      opacity: 0.95;
+    }
+    
+    .company-tagline {
+      font-size: clamp(0.8rem, 2vw, 1.1rem);
+      font-weight: 300;
+      letter-spacing: 0.02em;
+      margin: 0;
+      opacity: 0.8;
+      /* text-transform: lowercase; */
+    }
+    
+    /* Responsive para móviles */
+    @media (max-width: 768px) {
+      .hero-text {
+        bottom: 12%;
+        left: 5%;
+      }
+      
+      .company-title {
+        margin-bottom: 0.3rem;
+      }
+    }
+    
+</style>
 
-   
-
-  </style>
-
-
-
-
-
-
-<script>
+     
+<!-- <script>
  document.addEventListener("DOMContentLoaded", () => {
   const trigger = document.getElementById("scroll-trigger");
   const navElement = document.querySelector(".cambio_color");
-  const element = document.querySelector('.menu_cambio'); 
+  const element = document.querySelector('.menu_cambio');
+
+  const logo = document.getElementById("logo");
 
   if (!trigger || !navElement) {
     console.error("No se encontró el elemento #scroll-trigger o .cambio_color");
@@ -98,11 +130,13 @@ import Layout from '../layouts/Layout.astro';
     (entries) => {
       const entry = entries[0];
       if (!entry.isIntersecting) {
-        navElement.classList.add("scrolled");
+        // navElement.classList.add("scrolled");
         element?.classList.add('scrolled_menu');
-      } else {
-        navElement.classList.remove("scrolled");
+        logo?.classList.add("hidden");
+       } else {
+        // navElement.classList.remove("scrolled");
         element?.classList.remove('scrolled_menu');
+        logo?.classList.remove("hidden");
       }
     },
     {
@@ -114,11 +148,46 @@ import Layout from '../layouts/Layout.astro';
   observer.observe(trigger);
 });
 
+</script> -->
 
+<script>
+  function init() {
+    const trigger = document.getElementById("scroll-trigger");
+    const navElement = document.querySelector(".cambio_color");
+    const element = document.querySelector('.menu_cambio');  //Este es el menu de divs
+    const logo = document.getElementById("logo");
+
+    if (!trigger || !navElement) {
+      console.error("No se encontró el elemento #scroll-trigger o .cambio_color");
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        if (!entry.isIntersecting) {
+          element?.classList.add('scrolled_menu');
+          logo?.classList.add("hidden");
+         } else {
+          element?.classList.remove('scrolled_menu');
+          logo?.classList.remove("hidden");
+        }
+      },
+      {
+        root: null,
+        threshold: 0.1,
+      }
+    );
+
+    observer.observe(trigger);
+  }
+
+  // Inicializar en la primera carga
+  init();
+
+  // Re-inicializar después de cada transición de vista
+  document.addEventListener("astro:after-swap", init);
 </script>
 
-
-
-
-  
+      
 </Layout>

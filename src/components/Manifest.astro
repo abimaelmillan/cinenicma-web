@@ -1,98 +1,363 @@
-
-
 <section class="manifiesto">
-
-
-    <img src="/images/7.JPG" alt=""/>
-    
-
-    
-    <div class="contenedor">
-        <p>
-            En Cinenicma creemos que el cine no es solo una forma de contar historias: es un lenguaje capaz de emocionar, de transformar realidades y de crear memorias eternas.
-            Cada imagen que capturamos, cada historia que construimos y cada detalle que perfeccionamos tiene un solo propósito:  <span>elevar cada proyecto a una experiencia cinematográfica inolvidable.</span>
-        </p>
-        
-        <button>Acerca de</button>
-    </div>
-        
-        
-
-
+  <div class="image-container">
+    <img src="/images/7.JPG" alt="Manifiesto cinematográfico"/>
+    <div class="image-overlay"></div>
+  </div>
+  <div class="contenedor">
+    <div class="section-number">MANIFIESTO</div>
+    <h2 class="manifiesto-title">Nuestra Esencia</h2>
+    <p class="manifiesto-text">
+      En Cinenicma creemos que el cine no es solo una forma de contar historias: es un lenguaje capaz de emocionar, de transformar realidades y de crear memorias eternas.
+      <br><br>
+      Cada imagen que capturamos, cada historia que construimos y cada detalle que perfeccionamos tiene un solo propósito: <span class="highlight">elevar cada proyecto a una experiencia cinematográfica inolvidable.</span>
+    </p>
+    <a class="cta-button" href="/nosotros">
+      <span class="button-text">Acerca de</span>
+      <div class="button-arrow">→</div>
+    </a>
+  </div>
 </section>
 
-    <style>
+<style>
+  :root {
+    --color-background: #ffffff;
+    --color-text: #1a1a1a;
+    --color-accent: #000000;
+    --color-muted: #666666;
+    --color-border: #e5e5e5;
+    --color-red: #cc0000;
+    --color-dark-bg: #0a0a0a;
+    --color-light-gray: #f8f8f8;
+    
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-heading: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
 
-        
-        .manifiesto{
-            width: 100vw;
-            height: 90vh;
-            display: flex;
-            align-items: flex-start;
-            justify-content: center;
-            overflow: hidden;
+  .manifiesto {
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+    min-height: 85vh;
+    align-items: stretch;
+    justify-content: center;
+    overflow: hidden;
+    margin: clamp(6rem, 12vw, 10rem) 0;
+    position: relative;
+    background: linear-gradient(135deg, #fafafa 0%, #ffffff 100%);
+  }
 
-            margin-top: 10rem;
-            
-        }
+  .image-container {
+    width: 50%;
+    position: relative;
+    overflow: hidden;
+    background: var(--color-dark-bg);
+  }
 
-        .manifiesto > img{
-            width: 40%;
-            height: 700px;
-            object-fit: cover;
-        }    
+  .manifiesto img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    filter: contrast(1.1) brightness(0.9);
+  }
 
+  .image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;  
+    bottom: 0;
+    background: linear-gradient(
+      45deg, 
+      rgba(0, 0, 0, 0.3) 0%, 
+      transparent 50%, 
+      rgba(204, 0, 0, 0.1) 100%
+    );
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    pointer-events: none;
+  }
 
-        .contenedor{    
-            width: 40%;
-            padding: 0;  
-        }        
-  
-        
-        p    {
+  .manifiesto:hover img {
+    transform: scale(1.05);
+  }
 
-            
-            width: 100%;
-            font-size: 2rem;
-            line-height: 1.4;
-            /* transform: translateX(170px); */
-            /* text-align: start; */
-            
+  .manifiesto:hover .image-overlay {
+    opacity: 1;
+  }
 
-            padding: 0 4rem;
-        }
+  .contenedor {
+    width: 50%;
+    padding: clamp(3rem, 8vw, 6rem) clamp(2rem, 6vw, 4rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    background: white;
+  }
 
+  .contenedor::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2px;
+    height: 100%;
+    background: var(--color-red);
+    opacity: 0.3;
+  }
 
-        
+  .section-number {
+    font-family: 'Courier New', monospace;
+    font-size: 0.75rem;
+    color: var(--color-red);
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.8s ease 0.2s forwards;
+  }
 
-        span{
-            font-weight: 500;
-        }
+  .manifiesto-title {
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 4vw, 2.5rem);
+    font-weight: 600;
+    color: var(--color-accent);
+    line-height: 1.1;
+    margin: 0 0 2rem 0;
+    letter-spacing: -0.02em;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.8s ease 0.4s forwards;
+  }
 
+  .manifiesto-text {
+    font-size: clamp(1.125rem, 2vw, 1.25rem);
+    line-height: 1.7;
+    color: var(--color-text);
+    margin: 0 0 3rem 0;
+    font-weight: 400;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.8s ease 0.6s forwards;
+  }
 
-        .manifiesto .contenedor button{
-            margin-top: 2rem;
-            padding: 1.5rem 2.5rem;
-            cursor: pointer;
-            margin: 2rem 4rem;
+  .highlight {
+    color: var(--color-accent);
+    font-weight: 500;
+    position: relative;
+  }
 
-            border: none;
-            
-        }
+  .highlight::after {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--color-red) 0%, transparent 100%);
+    opacity: 0.6;
+  }
 
-       @media screen {
-        
-       }
+  .cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem 2rem;
+    background: var(--color-dark-bg);
+    color: white;
+    border: none;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: relative;
+    overflow: hidden;
+    text-transform: uppercase;
+    min-width: 180px;
+    justify-content: space-between;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.8s ease 0.8s forwards;
+  }
 
+  .cta-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+    transition: left 0.6s ease;
+  }
 
+  .cta-button:hover {
+    background: var(--color-red);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(204, 0, 0, 0.3);
+  }
 
+  .cta-button:hover::before {
+    left: 100%;
+  }
 
+  .button-text {
+    position: relative;
+    z-index: 1;
+  }
 
+  .button-arrow {
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+    position: relative;
+    z-index: 1;
+  }
 
-    </style>
+  .cta-button:hover .button-arrow {
+    transform: translateX(4px);
+  }
 
+  /* Animaciones */
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 
+  /* Media queries mejoradas */
+  @media (max-width: 1024px) {
+    .manifiesto {
+      flex-direction: column;
+      min-height: auto;
+      margin: 4rem 0;
+    }
 
+    .image-container,
+    .contenedor {
+      width: 100%;
+    }
 
+    .image-container {
+      height: 50vh;
+      min-height: 400px;
+    }
 
+    .contenedor {
+      padding: 3rem 2rem;
+    }
 
+    .contenedor::before {
+      width: 100%;
+      height: 2px;
+      top: 0;
+      left: 0;
+    }
+
+    .manifiesto-text {
+      margin-bottom: 2.5rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .manifiesto {
+      margin: 3rem 0;
+    }
+
+    .image-container {
+      height: 40vh;
+      min-height: 300px;
+    }
+
+    .contenedor {
+      padding: 2.5rem 1.5rem;
+    }
+
+    .manifiesto-text {
+      font-size: 1.125rem;
+      line-height: 1.6;
+    }
+
+    .cta-button {
+      width: 100%;
+      justify-content: center;
+      padding: 1.5rem 2rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .manifiesto {
+      margin: 2rem 0;
+    }
+
+    .image-container {
+      height: 35vh;
+      min-height: 250px;
+    }
+
+    .contenedor {
+      padding: 2rem 1.25rem;
+    }
+
+    .manifiesto-text {
+      font-size: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .section-number {
+      font-size: 0.7rem;
+      margin-bottom: 1rem;
+    }
+
+    .cta-button {
+      padding: 1.25rem 1.5rem;
+      font-size: 0.9rem;
+    }
+  }
+
+  /* Accesibilidad y movimiento reducido */
+  @media (prefers-reduced-motion: reduce) {
+    .section-number,
+    .manifiesto-title,
+    .manifiesto-text,
+    .cta-button {
+      opacity: 1;
+      transform: none;
+      animation: none;
+    }
+
+    .manifiesto img,
+    .cta-button,
+    .button-arrow {
+      transition: none;
+    }
+
+    .manifiesto:hover img {
+      transform: none;
+    }
+
+    .cta-button:hover {
+      transform: none;
+    }
+
+    .cta-button:hover .button-arrow {
+      transform: none;
+    }
+  }
+
+  /* Estados de focus para accesibilidad */
+  .cta-button:focus {
+    outline: 2px solid var(--color-red);
+    outline-offset: 2px;
+  }
+
+  .cta-button:focus:not(:focus-visible) {
+    outline: none;
+  }
+</style>

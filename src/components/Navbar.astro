@@ -1,57 +1,41 @@
 ---
-
+// Navbar.astro
 ---
-
 <header>
-  <nav >
-    <!-- Menú hamburguesa -->
+  <nav>
     <button id="menu-toggle" class="menu_cambio">
       <div></div>
       <div></div>
       <div></div>
     </button>
 
-    <!-- Título centrado -->
-    <div class="logo cambio_color" >
+    <div class="logo cambio_color" id="logo">
       <h1>CINENICMA</h1>
     </div>
 
-    <!-- Botones para cambio de idioma -->
-    <div class="actions " >
-
-      <button id="lang-toggle">
-
-        <img src="icons/language.svg" alt="Cambiar idioma">
-      </button>
+    <div class="actions">
+      <!-- <button id="lang-toggle">
+        <img src="icons/language.svg" alt="Cambiar idioma" />
+      </button> -->
     </div>
 
-    <!-- Menu lateral oculto por defecto  -->
     <div id="side-menu">
-      <nav class="side-nav" class="navbar">
-        <a href="#">Inicio</a>
-        <a href="#">Contacto</a>
-        <a href="#">Servicios</a>
-        <a href="#">Acerca de</a>
+      <nav class="side-nav">
+        <a href="/">Inicio</a>
+        <a href="/nosotros">Nosotros</a>
+        <a href="/servicios">Servicios</a>
+        <a href="/contacto">Contacto</a>
       </nav>
     </div>
   </nav>
 </header>
 
-
-
-
-
-
-
 <style>
-
   header {
     position: fixed;
     height: 90px;
     width: 100%;
     z-index: 100;
-    /* background: transparent; */
-
   }
 
   nav {
@@ -61,7 +45,6 @@
     padding: 1rem 2rem;
   }
 
-  /* Estilos básicos para el botón hamburguesa */
   #menu-toggle {
     display: flex;
     flex-direction: column;
@@ -83,7 +66,6 @@
     transform-origin: left;
   }
 
-  /* Animación al hacer click (cuando tenga la clase active) */
   #menu-toggle.active div:first-child {
     transform: rotate(45deg);
     background: black;
@@ -98,32 +80,29 @@
     background: black;
   }
 
-  #side-menu{
-    position: fixed; 
+  #side-menu {
+    position: fixed;
     top: 0;
     left: 0;
     width: 25%;
     height: 100%;
     background-color: #f5f5f5;
     padding: 20px;
-    /* transition: transform 0.4s ease-out; */
     transition: transform 0.3s ease-in-out;
     transform: translateX(-100%);
     z-index: 1000;
   }
 
-  #side-menu.active{
+  #side-menu.active {
     transform: translateX(0);
   }
 
-  .side-nav{
+  .side-nav {
     display: flex;
     flex-direction: column;
-    gap: 1rem; 
+    gap: 1rem;
     row-gap: 4rem;
-
     font-size: 2.5rem;
-
     height: 100%;
     justify-content: flex-start;
     align-items: flex-start;
@@ -131,15 +110,39 @@
     padding-top: 15rem;
   }
 
-  .side-nav a{
+  .side-nav a {
     text-decoration: none;
     color: #333;
     position: relative;
     font-weight: 400;
-    
+    /* --- NUEVO: Estado inicial para la animación --- */
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 0.4s ease-out, transform 0.4s ease-out;
   }
 
-  .side-nav a::after{
+  /* --- NUEVO: Estado activo para la animación --- */
+  #side-menu.active .side-nav a {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* --- NUEVO: Retrasos para cada enlace --- */
+  #side-menu.active .side-nav a:nth-child(1) {
+    transition-delay: 0.2s;
+  }
+  #side-menu.active .side-nav a:nth-child(2) {
+    transition-delay: 0.3s;
+  }
+  #side-menu.active .side-nav a:nth-child(3) {
+    transition-delay: 0.4s;
+  }
+  #side-menu.active .side-nav a:nth-child(4) {
+    transition-delay: 0.5s;
+  }
+  /* --- FIN DE LO NUEVO --- */
+
+  .side-nav a::after {
     content: "";
     display: block;
     width: 100%;
@@ -152,13 +155,22 @@
     margin-top: 3px;
   }
 
-  .side-nav a:hover::after{
+  .side-nav a:hover::after {
     transform: scaleX(1);
   }
 
-  .logo{
-    color: white; 
-    font-size: 1.2rem;
+  .logo {
+    color: white;
+    font-size: 1.4rem;
+    font-family: "Roboto Flex", sans-serif;
+    font-weight: 800;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    letter-spacing: 0.05em;
+  }
+
+  .logo.hidden {
+    opacity: 0;
+    transform: translateY(-20px);
   }
 
   #lang-toggle {
@@ -166,110 +178,112 @@
     border: none;
     outline: none;
     padding: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
   }
 
-
+  #lang-toggle.hidden {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
 
   #lang-toggle img {
     width: 2.2rem;
   }
 
-
-
   @media (max-width: 768px) {
-  #side-menu {
-    width: 100% ; /* En pantallas pequeñas, ocupa el 100% del ancho */
+    #side-menu {
+      width: 100%;
+    }
+
+    .side-nav {
+      padding-left: 1rem;
+      row-gap: 2rem;
+      padding-top: 7rem;
+      justify-content: flex-start;
+    }
+
+    .logo {
+      font-size: 1rem;
+    }
   }
-
-  .side-nav {
-    
-    padding-left: 1rem; /* Reduce el padding para pantallas pequeñas */
-    row-gap: 2rem;
-    padding-top: 7rem;
-    justify-content: flex-start;
-  }
-
-  .logo{
-    font-size: 1rem;
-  }
-}
-
-
 </style>
-
-
-
-
 
 <style is:global>
+  .cambio_color h1,
+  .cambio_color button,
+  .cambio_color a {
+    transition: color 0.5s ease;
+    color: white;
+  }
 
-.cambio_color h1,
-.cambio_color button,
-.cambio_color a {
-  transition: color 0.5s ease;
-  color: white;
-}
+  .cambio_color.scrolled h1,
+  .cambio_color.scrolled button,
+  .cambio_color.scrolled a {
+    color: black;
+  }
 
-.cambio_color.scrolled h1,
-.cambio_color.scrolled button,
-.cambio_color.scrolled a {
-  color: black;
-}
+  #menu-toggle > div {
+    transition: background-color 0.4s ease;
+  }
 
-#menu-toggle > div {
-  transition: background-color 0.4s ease;
-}
-.menu_cambio.scrolled_menu > div {
-  background: black !important;
-
-
-
-}
-
+  .menu_cambio.scrolled_menu > div {
+    background: black !important;
+  }
 </style>
 
-
-
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
+<script type="module" lang="ts">
+  function initNavbar() {
     const menuToggle = document.getElementById("menu-toggle");
-    const sideMenu = document.getElementById('side-menu'); 
-    if (menuToggle) {
+    const sideMenu = document.getElementById("side-menu");
+    const cambioColor = document.querySelector(".cambio_color");
+    const menuCambio = document.querySelector(".menu_cambio");
+    const logo = document.getElementById("logo");
+    const langToggle = document.getElementById("lang-toggle");
+
+    if (menuToggle && sideMenu) {
       menuToggle.addEventListener("click", () => {
         menuToggle.classList.toggle("active");
-        // Aquí puedes agregar la lógica para mostrar el menú de categorías si lo deseas
-        sideMenu?.classList.toggle('active'); 
+        sideMenu.classList.toggle("active");
       });
     }
-  });
 
+    window.addEventListener("scroll", () => {
+      const scrollY = window.scrollY;
 
-//   document.addEventListener('DOMContentLoaded', () => {
-//   const element = document.querySelector('.cambio_color'); 
-//   window.addEventListener('scroll', () => {
-//     if (window.scrollY > 1000) {
-//       element?.classList.add('scrolled');
-//     } else {
-//       element?.classList.remove('scrolled');
-//     }
-//   });
-// });
+      if (cambioColor) {
+        if (scrollY > 1000) {
+          cambioColor.classList.add("scrolled");
+        } else {
+          cambioColor.classList.remove("scrolled");
+        }
+      }
 
-// document.addEventListener('DOMContentLoaded', () => {
-//   const element = document.querySelector('.menu_cambio'); 
-//   window.addEventListener('scroll', () => {
-//     if (window.scrollY > window.innerHeight) {
-//       element?.classList.add('scrolled_menu');
-//     } else {
-//       element?.classList.remove('scrolled_menu');
-//     }
-//   });
-// });
+      if (menuCambio) {
+        if (scrollY > window.innerHeight) {
+          menuCambio.classList.add("scrolled_menu");
+        } else {
+          menuCambio.classList.remove("scrolled_menu");
+        }
+      }
 
+      if (logo) {
+        if (scrollY > 120) {
+          logo.classList.add("hidden");
+        } else {
+          logo.classList.remove("hidden");
+        }
+      }
 
+      if (langToggle) {
+        if (scrollY > 120) {
+          langToggle.classList.add("hidden");
+        } else {
+          langToggle.classList.remove("hidden");
+        }
+      }
+    });
+  }
 
-  
-
-
-
+  document.addEventListener("DOMContentLoaded", initNavbar);
+  document.addEventListener("astro:after-swap", initNavbar);
 </script>

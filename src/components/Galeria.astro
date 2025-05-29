@@ -16,17 +16,12 @@
   </figure>
 
   <figure class="galeria-item item6">
-    <img src="/images/6.JPG" alt="Imagen 5">
+    <img src="/images/6.JPG" alt="Imagen 6">
   </figure>
 
   <figure class="galeria-item item7">
-    <img src="/images/7.JPG" alt="Imagen 5">
+    <img src="/images/7.JPG" alt="Imagen 7">
   </figure>
-
-
-
-
-
   
   <!-- Agrega más figuras según lo necesites -->
 </section>
@@ -35,13 +30,11 @@
   .galeria {
     display: grid;
     width: 100vw;
-    grid-template-columns: repeat(3,1fr);
+    grid-template-columns: repeat(3, 1fr);
     grid-auto-rows: auto;
     gap: 1rem 1rem;
-
     padding-bottom: 5rem;
     background-color: white;
-
   }
 
   .galeria-item {  
@@ -50,25 +43,21 @@
     overflow: hidden;
   }
 
-  
-  .item2{
+  .item2 {
     grid-column: span 2;
   }
   
-  .item3{
+  .item3 {
     grid-column: span 2;
   }
   
-  
-  .item5{
+  .item5 {
     grid-column: span 3;
   }
 
-
-  .item7{
+  .item7 {
     grid-column: span 2;
   }
-
 
   .galeria-item img {
     width: 100%;
@@ -77,37 +66,176 @@
     display: block;
   }
 
-  figure{
+  figure {
     padding: 0;
     margin: 0;
   }
-  
-  
-  
-  
-  
-  
-/* 1) Animación que combina desvanecimiento, desplazamiento y zoom */
-@keyframes fadeInGrow {
-  from {
-    
-    transform: translateY(60px) scale(0.9);
-  }
-  to {
-    
-    transform: translateY(0) scale(1);
-  }
-}
 
-/* 2) Aplica la animación ligada al scroll */
-.galeria-item {
-  transform-origin: center center;          /* zoom centrado */
-  animation-name: fadeInGrow;
-  animation-timing-function: ease-out;
-  animation-fill-mode: both;                /* conserva estado “to” */
-  animation-duration: 1s;                   /* duración base */
-  animation-timeline: view();               /* vinculado al viewport */
-  animation-range: entry 0% exit 100%;      /* desde que entra hasta que sale */
-}
+  /* Animación que combina desvanecimiento, desplazamiento y zoom */
+  @keyframes fadeInGrow {
+    from {
+      transform: translateY(60px) scale(0.9);
+    }
+    to {
+      transform: translateY(0) scale(1);
+    }
+  }
 
+  /* Aplica la animación ligada al scroll */
+  .galeria-item {
+    transform-origin: center center;
+    animation-name: fadeInGrow;
+    animation-timing-function: ease-out;
+    animation-fill-mode: both;
+    animation-duration: 1s;
+    animation-timeline: view();
+    animation-range: entry 0% exit 100%;
+  }
+
+  /* RESPONSIVE DESIGN MEJORADO */
+
+  /* Tablets grandes (1024px - 1200px) */
+  @media (max-width: 1200px) {
+    .galeria {
+      padding: 0 1rem 4rem 1rem;
+      gap: 0.8rem;
+    }
+
+    .galeria-item {
+      height: 350px;
+    }
+  }
+
+  /* Tablets (768px - 1024px) */
+  @media (max-width: 1024px) {
+    .galeria {
+      grid-template-columns: repeat(2, 1fr);
+      padding: 0 1rem 3rem 1rem;
+      gap: 0.8rem;
+    }
+
+    .galeria-item {
+      height: 300px;
+    }
+
+    /* Redistribución para 2 columnas */
+    .item1 {
+      grid-column: span 1;
+    }
+
+    .item2 {
+      grid-column: span 1;
+    }
+    
+    .item3 {
+      grid-column: span 2;
+    }
+    
+    .item4 {
+      grid-column: span 1;
+    }
+
+    .item5 {
+      grid-column: span 2;
+    }
+
+    .item6 {
+      grid-column: span 1;
+    }
+
+    .item7 {
+      grid-column: span 1;
+    }
+  }
+
+  /* Móviles grandes (600px - 768px) */
+  @media (max-width: 768px) {
+    .galeria {
+      grid-template-columns: repeat(2, 1fr);
+      padding: 0 0.8rem 3rem 0.8rem;
+      gap: 0.6rem;
+    }
+
+    .galeria-item {
+      height: 250px;
+    }
+
+    /* Layout optimizado para móviles grandes */
+    .item1, .item2, .item4, .item6, .item7 {
+      grid-column: span 1;
+    }
+    
+    .item3, .item5 {
+      grid-column: span 2;
+    }
+  }
+
+  /* Móviles medianos (480px - 600px) */
+  @media (max-width: 600px) {
+    .galeria {
+      gap: 0.5rem;
+      padding: 0 0.5rem 2.5rem 0.5rem;
+    }
+
+    .galeria-item {
+      height: 220px;
+    }
+  }
+
+  /* Móviles pequeños (menos de 480px) */
+  @media (max-width: 480px) {
+    .galeria {
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+      padding: 0 0.5rem 2rem 0.5rem;
+    }
+
+    .galeria-item {
+      grid-column: span 1 !important;
+      height: 280px;
+    }
+  }
+
+  /* Móviles muy pequeños (menos de 360px) */
+  @media (max-width: 360px) {
+    .galeria {
+      padding: 0 0.25rem 2rem 0.25rem;
+      gap: 0.4rem;
+    }
+
+    .galeria-item {
+      height: 250px;
+    }
+  }
+
+  /* Optimización para dispositivos en landscape */
+  @media (max-width: 1024px) and (orientation: landscape) {
+    .galeria-item {
+      height: 200px;
+    }
+  }
+
+  @media (max-width: 768px) and (orientation: landscape) {
+    .galeria-item {
+      height: 180px;
+    }
+  }
+
+  /* Accesibilidad - Respeto por preferencias de movimiento reducido */
+  @media (prefers-reduced-motion: reduce) {
+    .galeria-item {
+      animation: none;
+      transform: none;
+    }
+  }
+
+  /* Estados de focus para navegación por teclado */
+  .galeria-item:focus-within {
+    outline: 2px solid #0066cc;
+    outline-offset: 2px;
+  }
+
+  .galeria-item:focus-within:not(:focus-visible) {
+    outline: none;
+  }
 </style>
